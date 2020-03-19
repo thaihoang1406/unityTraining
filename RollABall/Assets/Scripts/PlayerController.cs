@@ -37,15 +37,40 @@ public class PlayerController : MonoBehaviour
             temp.SetActive(true);
             listPos.Add(temp);
         }
+
+        checkAndPlayIdle();
+
         if (listPos.Count > index)
             if (listPos[index].active == true)
-                transform.position = Vector3.MoveTowards(transform.position, listPos[index].transform.position, 0.1f);
+            {
+                transform.localScale = new Vector3(1, 1, 1);
+                transform.parent.transform.position = Vector3.MoveTowards(transform.parent.transform.position, listPos[index].transform.position, 0.1f);
+            }
             else
                 index++;
         
     }
 
+    void checkAndPlayIdle()
+    {
+        bool idle = true;
+        foreach(var obj in listPos)
+        {
+            if (obj.active == true)
+            {
+                idle = false;
+                break;
+            }
+        }
 
+        if (idle)
+        {
+            GetComponent<Animator>().enabled = true;
+            GetComponent<Animator>().SetTrigger("Idle");
+        }
+        else
+            GetComponent<Animator>().enabled = false;
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("PickUp"))
