@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
         checkAndPlayIdle();
 
         if (listPos.Count > index)
-            if (listPos[index].active == true)
+            if (listPos[index].GetComponentInChildren<Rotator>().isdie == false)
             {
                 transform.localScale = new Vector3(1, 1, 1);
                 transform.parent.transform.position = Vector3.MoveTowards(transform.parent.transform.position, listPos[index].transform.position, 0.1f);
@@ -92,7 +92,8 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("PickUp"))
         {
-            other.gameObject.transform.parent.gameObject.SetActive(false);
+            other.gameObject.GetComponent<Animator>().SetTrigger("Die");
+            other.gameObject.GetComponent<Rotator>().isdie = true;
             count++;
             SetCountText();
         }
