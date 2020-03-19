@@ -34,6 +34,23 @@ public class PlayerController : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             Physics.Raycast(ray, out hit, 100, layermask);
             GameObject temp = PickUpFrefab.Spawn(hit.point);
+
+            int rand = Random.Range(0, 3);
+            switch (rand)
+            {
+                case 0:
+                    temp.GetComponentInChildren<Animator>().SetTrigger("Green");
+                    break;
+                case 1:
+                    temp.GetComponentInChildren<Animator>().SetTrigger("Red");
+                    break;
+                case 2:
+                    temp.GetComponentInChildren<Animator>().SetTrigger("Blue");
+                    break;
+
+            }
+            
+
             temp.SetActive(true);
             listPos.Add(temp);
         }
