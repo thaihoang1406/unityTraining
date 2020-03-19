@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             Physics.Raycast(ray, out hit, 100, layermask);
-            GameObject temp = Instantiate(PickUpFrefab, hit.point, Quaternion.identity);
+            GameObject temp = PickUpFrefab.Spawn(hit.point);
             temp.SetActive(true);
             listPos.Add(temp);
         }
