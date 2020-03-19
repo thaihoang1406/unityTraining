@@ -25,8 +25,7 @@ public class PlayerController : MonoBehaviour
         listPos = new List<GameObject>();
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         RaycastHit hit;
         if (Input.GetMouseButtonUp(0))
@@ -49,12 +48,17 @@ public class PlayerController : MonoBehaviour
                     break;
 
             }
-            
+
 
             temp.SetActive(true);
             listPos.Add(temp);
         }
+    }
 
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+       
         checkAndPlayIdle();
 
         if (listPos.Count > index)
