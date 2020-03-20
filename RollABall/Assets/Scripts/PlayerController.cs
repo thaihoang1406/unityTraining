@@ -53,19 +53,24 @@ public class PlayerController : MonoBehaviour
             temp.SetActive(true);
             listPos.Add(temp);
         }
+
+        checkAndPlayIdle();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
        
-        checkAndPlayIdle();
+        
 
         if (listPos.Count > index)
             if (listPos[index].GetComponentInChildren<Rotator>().isdie == false)
             {
-                transform.localScale = new Vector3(1, 1, 1);
-                transform.parent.transform.position = Vector3.MoveTowards(transform.parent.transform.position, listPos[index].transform.position, 0.1f);
+                transform.position = Vector3.MoveTowards(transform.position, listPos[index].transform.position, 0.05f);
+                transform.LookAt(listPos[index].transform);
+                GetComponent<Animator>().SetTrigger("Walk");
+                //transform.localScale = new Vector3(1, 1, 1);
+                //transform.parent.transform.position = Vector3.MoveTowards(transform.parent.transform.position, listPos[index].transform.position, 0.1f);
             }
             else
                 index++;
@@ -77,7 +82,7 @@ public class PlayerController : MonoBehaviour
         bool idle = true;
         foreach(var obj in listPos)
         {
-            if (obj.active == true)
+            if (obj.GetComponentInChildren<Rotator>().isdie == false)
             {
                 idle = false;
                 break;
@@ -85,15 +90,11 @@ public class PlayerController : MonoBehaviour
         }
 
         if (idle)
-        {
-            GetComponent<Animator>().enabled = true;
             GetComponent<Animator>().SetTrigger("Idle");
-        }
-        else
-            GetComponent<Animator>().enabled = false;
     }
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("Hoang");
         if (other.gameObject.CompareTag("PickUp"))
         {
             other.gameObject.GetComponent<Animator>().SetTrigger("Die");
