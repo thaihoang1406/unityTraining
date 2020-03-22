@@ -61,7 +61,10 @@ public class Pool : MonoBehaviour
         bool useLocalPosition = false,
         bool useLocalRotation = false)
     {
-        if (pooledInstances.Count <= 0) // Every game object has been spawned!
+        if (pooledInstances.Count <= 0)
+            return null;
+
+            if (pooledInstances.Count <= 0) // Every game object has been spawned!
         {
             GameObject newlyInstantiatedObject = Instantiate(prefab);
 

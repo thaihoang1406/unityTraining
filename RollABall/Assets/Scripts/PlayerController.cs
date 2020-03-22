@@ -24,25 +24,28 @@ public class PlayerController : MonoBehaviour
         wintext.text = "";
         listPos = new List<GameObject>();
     }
-
-    // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         RaycastHit hit;
         if (Input.GetMouseButtonUp(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             Physics.Raycast(ray, out hit, 100, layermask);
-            GameObject temp = Instantiate(PickUpFrefab, hit.point, Quaternion.identity);
-            temp.SetActive(true);
-            listPos.Add(temp);
+            GameObject temp = PickUpFrefab.Spawn(hit.point);
+            if(temp != null)
+                listPos.Add(temp);
         }
+        
+    }
+        // Update is called once per frame
+        void FixedUpdate()
+    {
         if (listPos.Count > index)
             if (listPos[index].active == true)
                 transform.position = Vector3.MoveTowards(transform.position, listPos[index].transform.position, 0.1f);
             else
                 index++;
-        
+
     }
 
 
@@ -50,7 +53,8 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("PickUp"))
         {
-            other.gameObject.transform.parent.gameObject.SetActive(false);
+            //other.gameObject.transform.parent.gameObject.SetActive(false);
+            other.gameObject.transform.parent.gameObject.Kill();
             count++;
             SetCountText();
         }
