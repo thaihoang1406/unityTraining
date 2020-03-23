@@ -6,9 +6,11 @@ public class PlayerController : MonoBehaviour
 {
     public float speed;
     public GameObject PickUpFrefab;
+    public GameObject PickUpDieParticle;
     public LayerMask layermask;
     public Text counttext;
     public Text wintext;
+
 
     private int index;
     private List<GameObject> listPos;
@@ -42,6 +44,7 @@ public class PlayerController : MonoBehaviour
                     break;
                 case 1:
                     temp.GetComponentInChildren<Animator>().SetTrigger("Red");
+                    temp.GetComponentInChildren<Rotator>().isRed = true; ;
                     break;
                 case 2:
                     temp.GetComponentInChildren<Animator>().SetTrigger("Blue");
@@ -98,6 +101,10 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("PickUp"))
         {
             other.gameObject.GetComponent<Animator>().SetTrigger("Die");
+
+            if(other.gameObject.GetComponent<Rotator>().isRed)
+                Instantiate(PickUpDieParticle,other.gameObject.transform.position, Quaternion.identity);
+            
             other.gameObject.GetComponent<Rotator>().isdie = true;
             count++;
             SetCountText();

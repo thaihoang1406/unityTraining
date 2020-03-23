@@ -375,6 +375,7 @@ MonoBehaviour:
   speed: 10
   PickUpFrefab: {fileID: 296160394632223480, guid: 0cb864549d9ee974ca2c12771e33866e,
     type: 3}
+  PickUpDieParticle: {fileID: 0}
   layermask:
     serializedVersion: 2
     m_Bits: 256
@@ -1002,6 +1003,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0
   PickUpFrefab: {fileID: 296160394632223480, guid: 0cb864549d9ee974ca2c12771e33866e,
+    type: 3}
+  PickUpDieParticle: {fileID: 605309818254800536, guid: cd1d03dfb99a853438d5576ef381f48a,
     type: 3}
   layermask:
     serializedVersion: 2
